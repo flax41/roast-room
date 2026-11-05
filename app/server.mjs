@@ -41,7 +41,7 @@ const server = http.createServer(async (req, res) => {
     }
     if (p === "/api/usage") return send(res, 200, usage);
     if (p === "/api/council" && req.method === "POST") {
-      if (RUNNER !== "api") return send(res, 403, { error: "This room is a viewer. Run /roast-room in Claude Code, or set COUNCIL_RUNNER=api in .env." });
+      if (RUNNER !== "api") return send(res, 403, { error: "This room is a viewer. Run /roast-room in Claude Code or $roast-room in Codex. To enable the Anthropic API runner, set COUNCIL_RUNNER=api in .env." });
       if (running && getSession(running)?.status === "running") return send(res, 409, { error: "A council is already in session. Wait for its verdict." });
       const { prompt, mode } = await readJson(req);
       if (!prompt || prompt.trim().length < 10) return send(res, 400, { error: "Give the council a real decision (at least a sentence)." });
@@ -80,4 +80,4 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-server.listen(PORT, "127.0.0.1", () => console.log(`Roast Room on http://localhost:${PORT} (${RUNNER === "api" ? "viewer + API runner" : "viewer: run /roast-room in Claude Code"})`));
+server.listen(PORT, "127.0.0.1", () => console.log(`Roast Room on http://localhost:${PORT} (${RUNNER === "api" ? "viewer + API runner" : "viewer: start a council in Claude Code or Codex"})`));

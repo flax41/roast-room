@@ -19,8 +19,8 @@ const GUIDE = `
     <div class="guide-sec">
       <h4>How to use the Roast Room</h4>
       <ol>
-        <li><span>Open Claude Code in this folder.</span></li>
-        <li><span>Type <code>/roast-room</code> and your decision.</span></li>
+        <li><span>Open Claude Code or Codex in this folder.</span></li>
+        <li><span>Type <code>/roast-room</code> in Claude Code or <code>$roast-room</code> in Codex, followed by your decision.</span></li>
         <li><span>Pick your advisors (the Chair recommends a board) and answer its questions. Then watch the council argue it out here.</span></li>
         <li><span>When the verdict lands, download it as a PDF.</span></li>
       </ol>
@@ -40,7 +40,7 @@ const GUIDE = `
     <div class="guide-sec">
       <h4>Example</h4>
       <div class="example">
-        <p><code>/roast-room</code> ${EXAMPLE.replace(/&/g, "&amp;").replace(/</g, "&lt;")}</p>
+        <p>Use Roast Room to debate this decision: ${EXAMPLE.replace(/&/g, "&amp;").replace(/</g, "&lt;")}</p>
         <button class="ghost" type="button" data-copy-example>Copy this example</button>
       </div>
     </div>
@@ -51,7 +51,7 @@ const GUIDE = `
         <li><span><b>Full council:</b> 5 to 7 advisors, 3 rounds. For big calls that are hard to undo.</span></li>
         <li><span><b>Quick:</b> add <code>--quick</code> for 4 advisors and 2 rounds. Uses far less of your plan.</span></li>
         <li><span><b>Every council is saved.</b> Open Past sessions to replay one or download its PDF.</span></li>
-        <li><span><b>Add an advisor:</b> type <code>/newroaster</code> and a name. Change your default board with <code>/roast-room board</code>.</span></li>
+        <li><span><b>Add an advisor:</b> type <code>/newroaster</code> and a name. Change your default board with <code>/roast-room board</code> in Claude Code or <code>$roast-room board</code> in Codex.</span></li>
       </ul>
     </div>
   </div>`;
@@ -258,7 +258,7 @@ function bindUI() {
   $("#guideBtn").addEventListener("click", openGuide);
   document.addEventListener("click", async (e) => {
     if (e.target.closest("[data-copy-example]")) {
-      try { await navigator.clipboard.writeText("/roast-room " + EXAMPLE); toast("Copied. Paste it into Claude Code."); }
+      try { await navigator.clipboard.writeText("Use Roast Room to debate this decision: " + EXAMPLE); toast("Copied. Paste it into Codex or Claude Code."); }
       catch { toast("Copy didn't work here. Select the text and copy it."); }
     }
     if (e.target.closest("[data-pdf]")) savePdf(e.target.closest("[data-pdf]"));
@@ -796,7 +796,7 @@ async function replay(id) {
 // ------------------------------------------------------------- waiting on Claude Code
 // A live council goes quiet for minutes while the seats write in parallel. Instead of a
 // frozen table, say what is happening, how long it has been, and what each seat is weighing.
-const SAME_TIME = "The advisors all write at the same time in Claude Code. Their lines play here as soon as the round is in.";
+const SAME_TIME = "The advisors are working on their cards. Their lines play here as soon as the round is in.";
 function waitCopy(phase) {
   const n = state.setup?.mode === "quick" ? 2 : 3;
   return {

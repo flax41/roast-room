@@ -38,7 +38,22 @@ cd roast-room
 
 Or open Claude Code anywhere and say: "Clone github.com/nateherkai/roast-room and start the room for me."
 
-## Run a roast
+## Run a roast in Codex
+
+Open this repository as a Codex project and start a chat there. Enter
+`$roast-room` followed by your decision. For example:
+
+```text
+$roast-room --quick Should we pilot a higher price with new customers?
+```
+
+Codex uses the same advisor sources, scoring, and verdict format. Use
+`$roast-room board` to view the roster or `$roast-room ask hormozi` followed by
+a question for a single advisor. Codex can run the council with your existing
+Codex access. Start `npm start` in this repository and open
+[the viewer](http://localhost:4730) to watch the rounds and download the PDF.
+
+## Run a roast in Claude Code
 
 1. Start the room: `npm start`, then open http://localhost:4730. Leave it open.
 2. Open Claude Code in the same folder: `claude`
