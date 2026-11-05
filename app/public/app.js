@@ -51,7 +51,7 @@ const GUIDE = `
         <li><span><b>Full council:</b> 5 to 7 advisors, 3 rounds. For big calls that are hard to undo.</span></li>
         <li><span><b>Quick:</b> add <code>--quick</code> for 4 advisors and 2 rounds. Uses far less of your plan.</span></li>
         <li><span><b>Every council is saved.</b> Open Past sessions to replay one or download its PDF.</span></li>
-        <li><span><b>Add an advisor:</b> type <code>/newroaster</code> and a name. Change your default board with <code>/roast-room board</code> in Claude Code or <code>$roast-room board</code> in Codex.</span></li>
+        <li><span><b>Add an advisor:</b> type <code>/newroaster</code> in Claude Code or <code>$newroaster</code> in Codex, followed by a name. Change your default board with <code>/roast-room board</code> in Claude Code or <code>$roast-room board</code> in Codex.</span></li>
       </ul>
     </div>
   </div>`;

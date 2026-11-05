@@ -2,7 +2,7 @@
 
 ![The Roast Room](docs/room.jpg)
 
-Bring a hard business decision and a council of AI advisors argues it out, then hands you a scored verdict and a one-click PDF. Twelve advisors ship with it, each built from that person's public work: their letters, essays, talks, and videos. For each question, the Chair recommends who should sit on the council and you confirm. The council runs in Claude Code, and a small local web app shows them around a table talking it through. Want someone else at the table? Type `/newroaster` and a name, and Claude builds that advisor the same way.
+Bring a hard business decision and a council of AI advisors argues it out, then hands you a scored verdict and a one-click PDF. Twelve advisors ship with it, each built from that person's public work: their letters, essays, talks, and videos. For each question, the Chair recommends who should sit on the council and you confirm. The council runs in Claude Code, and a small local web app shows them around a table talking it through. To build a new advisor, use `/newroaster` in Claude Code or `$newroaster` in Codex.
 
 | Seat | Pillar | The question they own |
 |---|---|---|
@@ -126,11 +126,13 @@ Skip the question on any run: `--seats hormozi,naval,buffett` seats exactly thos
 
 ## Add your own advisor
 
-```
-/newroaster Morgan Housel
+In a Codex chat opened in this repository, enter:
+
+```text
+$newroaster Morgan Housel --quick
 ```
 
-Claude builds a new seat the way the original seven were built:
+In Claude Code, use `/newroaster Morgan Housel --quick`. Both workflows use the same roster and follow the same build process:
 
 1. **Asks two or three questions**: the business pillar and question the advisor owns (it suggests one), whether they join your default board, and how deep to go.
 2. **Finds their public work**: essays, letters, talks, long interviews, and podcasts where they are the main speaker.
@@ -147,11 +149,11 @@ Claude builds a new seat the way the original seven were built:
 | default | 30 to 50 | An advisor you'll use |
 | `--deep` | 80+ | Matching the original seven |
 
-A standard build is about 8 to 10 sub-agent runs, so it uses a real share of your plan. When it finishes, open a new Claude Code session so the advisor loads as its own agent (the council works before that too). Then use them like anyone else: `/roast-room ask housel ...`, `/roast-room --seats housel,buffett,hormozi ...`, or put them on your default board. The Chair also starts recommending them when a question fits their pillar.
+A standard build is about 8 to 10 sub-agent runs, so it uses a real share of your plan. Codex can use a registered advisor immediately with `$roast-room ask housel ...` or `$roast-room --seats housel,buffett,hormozi ...`. In Claude Code, use the corresponding `/roast-room` commands and open a new session to load the dedicated advisor agent. The Chair also starts recommending them when a question fits their pillar.
 
 You can build an advisor from public figures, living or historical, with a real body of public work, or from your own material (your posts, transcripts, notes) if you want yourself or a consenting mentor on the board. The raw sources stay on your machine; only the brain, which holds short quotes and paraphrase, is meant to be committed.
 
-**Their face in the room:** `/newroaster` also makes the new advisor's cartoon portrait, the same way the original seven were made. It finds a real photo of the person, turns it into the same 3D cartoon style (using one of the existing cartoons as the style reference), picks the closest likeness, and makes the talking frames (mouth open, mouth "oh", and a blink). This step needs a [kie.ai](https://kie.ai/api-key) key in `.env` (`KIE_AI_API_KEY=`, about 5 image jobs per advisor) and Python with `opencv-python` (Claude installs it if it's missing). Without a key the advisor still works and shows a placeholder face; add a key later and run `/newroaster portrait <name>`.
+**Their face in the room:** The advisor build also makes the new advisor's cartoon portrait, the same way the original seven were made. It finds a real photo of the person, turns it into the same 3D cartoon style (using one of the existing cartoons as the style reference), picks the closest likeness, and makes the talking frames (mouth open, mouth "oh", and a blink). This step needs a [kie.ai](https://kie.ai/api-key) key in `.env` (`KIE_AI_API_KEY=`, about 5 image jobs per advisor) and Python with `opencv-python` and `numpy`. Without a key, the room shows a placeholder. Add a key later and run `$newroaster portrait <name>` in Codex or `/newroaster portrait <name>` in Claude Code.
 
 YouTube transcripts and photos work best with [yt-dlp](https://github.com/yt-dlp/yt-dlp) installed, and PDFs need `pdftotext` ([Poppler](https://poppler.freedesktop.org)). Both are optional: without them, Claude falls back to YouTube's own captions and reads PDFs itself.
 
